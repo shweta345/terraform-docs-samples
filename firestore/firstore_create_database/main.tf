@@ -16,19 +16,19 @@
 
 # CDN load balancer with Cloud bucket as backend
 
-[START firestore_create_database]
 resource "google_project" "my_project" {
   name       = "My Project"
   project_id = "shweta-terraform-project"
 }
 
+#[START firestore_create_database]
 resource "google_project_service" "firestore" {
   project ="shweta-terraform-project"
   service = "firestore.googleapis.com"
 }
 
 resource "google_firestore_database" "database" {
-  project     = shweta-terraform-project
+  project     = "shweta-terraform-project"
   name        = "(default)"
   location_id = "nam5"
   type        = "FIRESTORE_NATIVE"
@@ -36,41 +36,41 @@ resource "google_firestore_database" "database" {
 
   depends_on = [google_project_service.firestore]
 }
-[END  firestore_create_database]
+#[END  firestore_create_database]
 
-[START firestore_add_document]
+#[START firestore_add_document]
 resource "google_firestore_document" "mydoc" {
   project     = "shweta-terraform-project"
   collection  = "chatrooms"
   document_id = "my-doc-id"
   fields      =  "{\"something\":{\"mapValue\":{\"fields\":{\"name\":{\"stringValue\":\"Ben\"}}}}}"
 }
-[END firestore_add_document]
+#[END firestore_add_document]
 
-[START firestore_create_single_field_index]
-resource "google_firestore_field" "basic" {
-  project = "shweta-terraform-project"
-  database = "(default)"
-  collection = "chatrooms_%{random_suffix}"
-  field = "name"
+# #[START firestore_create_single_field_index]
+# resource "google_firestore_field" "basic" {
+#   project = "shweta-terraform-project"
+#   database = "(default)"
+#   collection = "chatrooms_%{random_suffix}"
+#   field = "name"
 
-  index_config {
-    indexes {
-        order = "ASCENDING"
-        query_scope = "COLLECTION_GROUP"
-    }
-    indexes {
-        array_config = "CONTAINS"
-    }
-  }
+#   index_config {
+#     indexes {
+#         order = "ASCENDING"
+#         query_scope = "COLLECTION_GROUP"
+#     }
+#     indexes {
+#         array_config = "CONTAINS"
+#     }
+#   }
 
-  ttl_config {}
-}
+#   ttl_config {}
+# }
 
-[END firestore_create_single_field_index]
+#[END firestore_create_single_field_index]
 
 
-[START  firestore_create_composite_index]
+#[START  firestore_create_composite_index]
 resource "google_firestore_index" "my-index" {
   project = "shweta-terraform-project"
 
@@ -87,4 +87,4 @@ resource "google_firestore_index" "my-index" {
   }
 
 }
-[END firestore_create_composite_index]
+#[END firestore_create_composite_index]
