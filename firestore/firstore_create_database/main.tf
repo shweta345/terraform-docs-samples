@@ -18,17 +18,17 @@
 
 resource "google_project" "my_project" {
   name       = "My Project"
-  project_id = "shweta-terraform-project"
+  project_id = "test-proj-terraform"
 }
 
 #[START firestore_create_database]
 resource "google_project_service" "firestore" {
-  project ="shweta-terraform-project"
+  project ="test-proj-terraform"
   service = "firestore.googleapis.com"
 }
 
 resource "google_firestore_database" "database" {
-  project     = "shweta-terraform-project"
+  project     = "test-proj-terraform"
   name        = "(default)"
   location_id = "nam5"
   type        = "FIRESTORE_NATIVE"
@@ -40,7 +40,7 @@ resource "google_firestore_database" "database" {
 
 #[START firestore_add_document]
 resource "google_firestore_document" "mydoc" {
-  project     = "shweta-terraform-project"
+  project     = "test-proj-terraform"
   collection  = "chatrooms"
   document_id = "my-doc-id"
   fields      =  "{\"something\":{\"mapValue\":{\"fields\":{\"name\":{\"stringValue\":\"Ben\"}}}}}"
@@ -49,7 +49,7 @@ resource "google_firestore_document" "mydoc" {
 
 #[START  firestore_create_composite_index]
 resource "google_firestore_index" "my-index" {
-  project = "shweta-terraform-project"
+  project = "test-proj-terraform"
 
   collection = "chatrooms"
 
