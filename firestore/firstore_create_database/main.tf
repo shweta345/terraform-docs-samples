@@ -47,29 +47,6 @@ resource "google_firestore_document" "mydoc" {
 }
 #[END firestore_add_document]
 
-# #[START firestore_create_single_field_index]
-# resource "google_firestore_field" "basic" {
-#   project = "shweta-terraform-project"
-#   database = "(default)"
-#   collection = "chatrooms_%{random_suffix}"
-#   field = "name"
-
-#   index_config {
-#     indexes {
-#         order = "ASCENDING"
-#         query_scope = "COLLECTION_GROUP"
-#     }
-#     indexes {
-#         array_config = "CONTAINS"
-#     }
-#   }
-
-#   ttl_config {}
-# }
-
-#[END firestore_create_single_field_index]
-
-
 #[START  firestore_create_composite_index]
 resource "google_firestore_index" "my-index" {
   project = "shweta-terraform-project"
