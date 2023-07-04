@@ -16,37 +16,6 @@
 
 # CDN load balancer with Cloud bucket as backend
 
-resource "google_project" "my_project" {
-  name       = "My Project"
-  project_id = "test-proj-terraform"
-}
-
-#[START firestore_create_database]
-resource "google_project_service" "firestore" {
-  project ="test-proj-terraform"
-  service = "firestore.googleapis.com"
-}
-
-resource "google_firestore_database" "database" {
-  project     = "test-proj-terraform"
-  name        = "(default)"
-  location_id = "nam5"
-  type        = "FIRESTORE_NATIVE"
-  app_engine_integration_mode = "DISABLED"
-
-  depends_on = [google_project_service.firestore]
-}
-#[END  firestore_create_database]
-
-#[START firestore_add_document]
-resource "google_firestore_document" "mydoc" {
-  project     = "test-proj-terraform"
-  collection  = "chatrooms"
-  document_id = "my-doc-id"
-  fields      =  "{\"something\":{\"mapValue\":{\"fields\":{\"name\":{\"stringValue\":\"Ben\"}}}}}"
-}
-#[END firestore_add_document]
-
 #[START  firestore_create_composite_index]
 resource "google_firestore_index" "my-index" {
   project = "test-proj-terraform"
